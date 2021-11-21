@@ -8,11 +8,15 @@ x-app: &app
   depends_on:
     - db
     - redis
+  restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
   stdin_open: true
+  stop_grace_period: "3s"
   tty: true
   volumes:
     - .:/app:cached
     - bundle:/usr/local/bundle
+    - type: tmpfs
+      target: /srv/app/tmp/pids/
 
 services:
   db:
@@ -45,5 +49,4 @@ services:
 
 volumes:
   bundle:
-  op-connect-data:
   postgres:
