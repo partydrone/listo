@@ -3,7 +3,7 @@ version: '3.8'
 x-app: &app
   build:
     args:
-      RUBY_VERSION: 3.0.2
+      RUBY_VERSION: 3.0.3
     context: .
   depends_on:
     - db

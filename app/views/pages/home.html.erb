@@ -3,4 +3,11 @@
   <p>Find me in app/views/pages/home.html.erb</p>
   <p>1234567890</p>
   <i class="fa-regular fa-coins"></i>
+
+  <p class="py-2">
+    <%= button_to "/auth/auth0", method: :post, class: "bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded" do %>
+      <i class="fa-regular fa-right-to-bracket"></i>
+      Login
+    <% end %>
+  </p>
 <div>
