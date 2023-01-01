@@ -6,7 +6,7 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module App
+module Listo
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
@@ -19,16 +19,17 @@ module App
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Log to STDOUT because Docker expects all processes to log here. You could
-    # then collect logs using journald, syslog, or forward them somewhere else.
-    logger = ActiveSupport::Logger.new($stdout)
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
-    config.log_tags = [:subdomain, :uuid]
+    # Use default logging formatter so that PID and timestamp are not suppressed.
+    config.log_formatter = ::Logger::Formatter.new
 
-    # Set Redis as the back-end for the cache.
-    config.cache_store = :redis_cache_store, {
-      url: ENV.fetch("REDIS_URL") { "redis://redis:6379/1" },
-      namespace: "cache"
-    }
+    # Use a different logger for distributed setups.
+    # require "syslog/logger"
+    # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
+
+    if ENV["RAILS_LOG_TO_STDOUT"].present?
+      logger           = ActiveSupport::Logger.new(STDOUT)
+      logger.formatter = config.log_formatter
+      config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    end
   end
 end

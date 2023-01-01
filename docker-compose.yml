@@ -1,19 +1,23 @@
-version: '3.8'
-
-x-app: &app
+x-app:
+  &app
   build:
     args:
-      RUBY_VERSION: 3.0.3
+      UID: 1000
+      GID: 1000
+      RAILS_ENV: development
     context: .
+    target: build
   depends_on:
     - db
     - redis
-  restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+  environment:
+    DATABASE_URL: postgres://postgres:postgres@db:5432/listo_development
+  restart: unless-stopped
   stdin_open: true
   stop_grace_period: "3s"
   tty: true
   volumes:
-    - .:/app:cached
+    - .:/srv:cached
     - bundle:/usr/local/bundle
     - type: tmpfs
       target: /srv/app/tmp/pids/
@@ -40,7 +44,6 @@ services:
     command: rails s -b 0.0.0.0
     ports:
       - '3000:3000'
-
   # cable:
   #   <<: *app
   #   command: puma -p 28080 cable/config.ru
