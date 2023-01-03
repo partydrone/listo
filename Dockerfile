@@ -20,7 +20,6 @@ RUN bundle install -j $(nproc)
 
 ARG RAILS_ENV=production
 ENV RAILS_ENV=${RAILS_ENV} \
-  RAILS_LOG_TO_STDOUT=true \
   PATH=${PATH}:/home/ruby/.local/bin \
   USER=ruby
 
@@ -55,7 +54,6 @@ RUN chmod 0755 bin/*
 
 ARG RAILS_ENV=production
 ENV RAILS_ENV=production \
-  RAILS_LOG_TO_STDOUT=true \
   PATH=${PATH}:/home/ruby/.local/bin \
   USER=ruby
 
