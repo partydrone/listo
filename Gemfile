@@ -37,7 +37,7 @@ gem "redis", "~> 5.0"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -47,7 +47,9 @@ gem "bootsnap", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "debug", platforms: %i[mri mingw x64_mingw]
+
+  gem "standard"
 end
 
 group :development do
@@ -59,6 +61,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem "guard"
+  gem "guard-minitest"
 end
 
 group :test do
@@ -66,4 +71,14 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+
+  gem "minitest"
+  gem "minitest-rails"
+  gem "minitest-reporters"
+  gem "simplecov", require: false
+  gem "simplecov-lcov", require: false
+  gem "simplecov-tailwindcss", require: false
 end
+
+gem "lograge", "~> 0.12.0"
+gem "sidekiq", "~> 7.0"

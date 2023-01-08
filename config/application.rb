@@ -11,6 +11,12 @@ module Listo
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    # Log to STDOUT because Docker expects all processes to log here. You could
+    # then collect logs using journald, syslog or forward them somewhere else.
+    logger = ActiveSupport::Logger.new($stdout)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
