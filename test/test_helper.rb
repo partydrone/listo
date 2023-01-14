@@ -7,7 +7,7 @@ SimpleCov.start "rails" do
 
   formatter SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::LcovFormatter,
-    SimpleCov::Formatter::TailwindFormatter,
+    SimpleCov::Formatter::TailwindFormatter
   ])
 end
 
