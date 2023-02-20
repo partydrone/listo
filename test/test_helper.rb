@@ -22,6 +22,9 @@ Dir[File.expand_path("test/config/**/*.rb")].each { |file| require file }
 
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true), ENV, Minitest.backtrace_filter
 
+Capybara.server_host = "0.0.0.0"
+Capybara.app_host = "http://#{ Socket.gethostname }:#{ Capybara.server_port }"
+
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
